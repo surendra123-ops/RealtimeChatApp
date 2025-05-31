@@ -44,6 +44,8 @@ export const useChatStore = create((set, get) => ({
     }
   },
 
+
+// listens for new incoming messages from a WebSocket and updates the local message state if the message is relevant
   subscribeToMessages: () => {
     const { selectedUser } = get();
     if (!selectedUser) return;

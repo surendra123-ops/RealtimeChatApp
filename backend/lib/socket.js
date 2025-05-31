@@ -22,7 +22,7 @@ function getReceiverSocketId(userId) {
 io.on('connection', (socket) => {
     console.log('A user connected', socket.id);
 
-    const userId = socket.handshake.query.userId;
+    const userId = socket.handshake.query.userId; //refer frontend authstore
     if (userId) {
         userSocketMap[userId] = socket.id; // Map userId to socketId
     }
@@ -46,3 +46,4 @@ io.on('connection', (socket) => {
 
 // Export the `io`, `app`, and `server` objects
 module.exports = { io, app, server, getReceiverSocketId };
+ 

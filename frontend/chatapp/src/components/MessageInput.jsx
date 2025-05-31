@@ -9,6 +9,7 @@ const MessageInput = () => {
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
 
+  // Handle image file selection and preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
@@ -23,11 +24,13 @@ const MessageInput = () => {
     reader.readAsDataURL(file);
   };
 
+  // Remove image preview and reset file input
   const removeImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  // Handle sending message
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
@@ -68,6 +71,7 @@ const MessageInput = () => {
           </div>
         </div>
       )}
+      
 
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
         <div className="flex-1 flex gap-2">
