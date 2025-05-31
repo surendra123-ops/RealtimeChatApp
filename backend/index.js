@@ -25,11 +25,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '/frontend/chatapp/dist')));
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, "../frontend/chatapp", "dist", "index.html"));
+    const staticPath = path.join(__dirname, '../frontend/chatapp/dist');
+    app.use(express.static(staticPath));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(staticPath, 'index.html'));
     });
 }
+
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000');
