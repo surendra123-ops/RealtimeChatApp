@@ -11,28 +11,29 @@ connectDB();
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 const cors = require('cors');
+
+// In production we serve frontend from same origin; in dev allow Vite dev server
+const corsOrigin = process.env.NODE_ENV === 'production' ? true : 'http://localhost:5173';
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: corsOrigin,
     credentials: true,
 }));
 
 app.use(express.json());
 
-// Remove this line because __dirname is already available in CommonJS:
-// const __dirname = path.resolve();
-
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
+// Production: serve frontend build from ./client (set by Dockerfile)
 if (process.env.NODE_ENV === 'production') {
-    const staticPath = path.join(__dirname, '../frontend/chatapp/dist');
+    const staticPath = path.join(__dirname, 'client');
     app.use(express.static(staticPath));
     app.get('*', (req, res) => {
         res.sendFile(path.join(staticPath, 'index.html'));
     });
 }
 
-
-server.listen(3000, () => {
-    console.log('Server is running on port 3000');
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log('Server is running on port', PORT);
 });

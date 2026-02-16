@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build output (we build inside Docker)
+frontend/chatapp/dist
+**/dist
+
+# Env and secrets (set on Render, not in image)
+.env
+.env.*
+!.env.example
+
+# Git and IDE
+.git
+.gitignore
+.cursor
+.vscode
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Optional: keep image smaller
+backend/node_modules
+frontend/chatapp/node_modules
