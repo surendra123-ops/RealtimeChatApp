@@ -7,7 +7,7 @@
     
     # Copy frontend package files
     COPY frontend/chatapp/package.json frontend/chatapp/package-lock.json* ./
-    RUN npm ci --omit=dev || npm install --omit=dev
+    RUN npm ci || npm install
     
     # Copy frontend source and build
     COPY frontend/chatapp/ .
